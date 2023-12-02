@@ -1,17 +1,15 @@
-import { readTextFile } from '../utils';
+import { REGEX_NUMBER, readTextFile, splitLines } from '../utils';
 
 export default function day1(part: string, args: string[]): unknown {
     switch (part) {
         case '1':
-            return day1Part1(args);
+            return part1(args);
         case '2':
-            return day1Part2(args);
+            return part2(args);
     }
 }
 
-const REGEX_NUMBER = /[\d]/g;
-
-function day1Part1(args: string[]): unknown {
+function part1(args: string[]): unknown {
     if (args.length < 1) {
         throw new Error("Invalid args");
     }
@@ -20,7 +18,7 @@ function day1Part1(args: string[]): unknown {
     const data = readTextFile(filePath);
 
     let total = 0;
-    const lines = data.split('\n');
+    const lines = splitLines(data);
     for (const line of lines) {
         const numbersFound = line.match(REGEX_NUMBER);
         if (!numbersFound || numbersFound.length === 0) {
@@ -37,7 +35,7 @@ function day1Part1(args: string[]): unknown {
     return total;
 }
 
-function day1Part2(args: string[]): unknown {
+function part2(args: string[]): unknown {
     if (args.length < 1) {
         throw new Error("Invalid args");
     }
@@ -46,7 +44,7 @@ function day1Part2(args: string[]): unknown {
     const data = readTextFile(filePath);
 
     let total = 0;
-    const lines = data.split('\n');
+    const lines = splitLines(data);
     for (const line of lines) {
         let firstNum: number | null = null;
         let standardLine = '';
