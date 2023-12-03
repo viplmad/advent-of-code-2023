@@ -4,6 +4,8 @@ export default function day1(part: string, args: string[]): unknown {
   switch (part) {
     case '1':
       return part1(args);
+    case '2':
+      return part2(args);
   }
 }
 
@@ -37,6 +39,41 @@ function part1(args: string[]): unknown {
       findNumbersIn(lines, index + 1, symbolIndex, usedSpaces).forEach(
         (num) => (total += num)
       );
+    }
+  }
+
+  return total;
+}
+
+const REGEX_ONLY_ASTERISK = /[\*]/g;
+
+function part2(args: string[]): unknown {
+  if (args.length < 1) {
+    throw new Error('Invalid args');
+  }
+
+  const filePath = args[0];
+  const data = readTextFile(filePath);
+
+  let total = 0;
+  const lines = splitLines(data);
+  for (let index = 0; index < lines.length; index++) {
+    const line = lines[index];
+
+    let asteriskMatch;
+    while ((asteriskMatch = REGEX_ONLY_ASTERISK.exec(line)) !== null) {
+      const symbolIndex = asteriskMatch.index;
+
+      const usedSpaces: boolean[][] = [];
+      const parts = [
+        ...findNumbersIn(lines, index - 1, symbolIndex, usedSpaces),
+        ...findNumbersIn(lines, index, symbolIndex, usedSpaces),
+        ...findNumbersIn(lines, index + 1, symbolIndex, usedSpaces),
+      ];
+
+      if (parts.length === 2) {
+        total += parts[0] * parts[1];
+      }
     }
   }
 
