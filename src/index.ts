@@ -1,6 +1,7 @@
 import day1 from './days/day1';
 import day2 from './days/day2';
 import day3 from './days/day3';
+import day4 from './days/day4';
 
 const args = process.argv ?? [];
 
@@ -23,6 +24,8 @@ switch (day) {
   case '3':
     result = day3(part, dayArgs);
     break;
+  case '4':
+    result = day4(part, dayArgs);
 }
 
 if (result) {
