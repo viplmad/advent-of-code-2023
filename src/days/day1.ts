@@ -1,4 +1,4 @@
-import { filterNumbers, readTextFile, splitLines } from '../utils';
+import { filterNumbers, readTextFile, splitTextByLineBreak } from '../utils';
 
 export default function day1(part: string, args: string[]): unknown {
   switch (part) {
@@ -18,7 +18,7 @@ function part1(args: string[]): unknown {
   const data = readTextFile(filePath);
 
   let total = 0;
-  const lines = splitLines(data);
+  const lines = splitTextByLineBreak(data);
   for (const line of lines) {
     const numbersFound = filterNumbers(line);
     if (!numbersFound || numbersFound.length === 0) {
@@ -44,7 +44,7 @@ function part2(args: string[]): unknown {
   const data = readTextFile(filePath);
 
   let total = 0;
-  const lines = splitLines(data);
+  const lines = splitTextByLineBreak(data);
   for (const line of lines) {
     let firstNum: number | null = null;
     let standardLine = '';

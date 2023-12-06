@@ -12,7 +12,9 @@
     "day4-part1": "npm run start 4 1 ./data/day4",
     "day4-part2": "npm run start 4 2 ./data/day4",
     "day5-part1": "npm run start 5 1 ./data/day5",
-    "day5-part2": "npm run start 5 2 ./data/day5"
+    "day5-part2": "npm run start 5 2 ./data/day5",
+    "day6-part1": "npm run start 6 1 ./data/day6",
+    "day6-part2": "npm run start 6 2 ./data/day6"
   },
   "author": "viplmad",
   "license": "MIT",

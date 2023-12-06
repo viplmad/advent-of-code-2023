@@ -1,4 +1,9 @@
-import { readTextFile, splitLines } from '../utils';
+import {
+  readTextFile,
+  splitLineByColon,
+  splitTextByLineBreak,
+  splitTextBySpace,
+} from '../utils';
 
 export default function day4(part: string, args: string[]): unknown {
   switch (part) {
@@ -18,20 +23,14 @@ function part1(args: string[]): unknown {
   const data = readTextFile(filePath);
 
   let total = 0;
-  const lines = splitLines(data);
+  const lines = splitTextByLineBreak(data);
   for (const line of lines) {
-    const sections = line.split(':');
-    const numbers = sections[1];
+    const { right } = splitLineByColon(line);
+    const numbers = right;
 
     const numbersSections = numbers.split('|');
-    const winnerNums = numbersSections[0]
-      .split(' ')
-      .map((text) => text.trim())
-      .filter((text) => !!text);
-    const cardNums = numbersSections[1]
-      .split(' ')
-      .map((text) => text.trim())
-      .filter((text) => !!text);
+    const winnerNums = splitTextBySpace(numbersSections[0]);
+    const cardNums = splitTextBySpace(numbersSections[1]);
 
     const cardWinnerNums = cardNums.filter((num) => winnerNums.includes(num));
 
@@ -60,22 +59,16 @@ function part2(args: string[]): unknown {
   const cardCopies: number[] = [];
 
   let total = 0;
-  const lines = splitLines(data);
+  const lines = splitTextByLineBreak(data);
   for (let index = 0; index < lines.length; index++) {
     const line = lines[index];
 
-    const sections = line.split(':');
-    const numbers = sections[1];
+    const { right } = splitLineByColon(line);
+    const numbers = right;
 
     const numbersSections = numbers.split('|');
-    const winnerNums = numbersSections[0]
-      .split(' ')
-      .map((text) => text.trim())
-      .filter((text) => !!text);
-    const cardNums = numbersSections[1]
-      .split(' ')
-      .map((text) => text.trim())
-      .filter((text) => !!text);
+    const winnerNums = splitTextBySpace(numbersSections[0]);
+    const cardNums = splitTextBySpace(numbersSections[1]);
 
     const cardWinnerNums = cardNums.filter((num) => winnerNums.includes(num));
 

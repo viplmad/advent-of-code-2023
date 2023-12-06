@@ -1,4 +1,9 @@
-import { filterNumbers, readTextFile, splitLines } from '../utils';
+import {
+  filterNumbers,
+  readTextFile,
+  splitLineByColon,
+  splitTextByLineBreak,
+} from '../utils';
 
 export default function day2(part: string, args: string[]): unknown {
   switch (part) {
@@ -22,16 +27,13 @@ function part1(args: string[]): unknown {
   const data = readTextFile(filePath);
 
   let total = 0;
-  const lines = splitLines(data);
+  const lines = splitTextByLineBreak(data);
   for (const line of lines) {
-    const sections = line.split(':');
-
-    const gameText = sections[0];
-    const gameId = readNumber(gameText);
+    const { left, right } = splitLineByColon(line);
+    const gameId = readNumber(left);
 
     let isValid = true;
-    const ballsText = sections[1];
-    const ballsSections = ballsText.split(';');
+    const ballsSections = right.split(';');
     for (const balls of ballsSections) {
       const ballsTexts = balls.split(',');
 
@@ -77,16 +79,15 @@ function part2(args: string[]): unknown {
   const data = readTextFile(filePath);
 
   let total = 0;
-  const lines = splitLines(data);
+  const lines = splitTextByLineBreak(data);
   for (const line of lines) {
-    const sections = line.split(':');
+    const { right } = splitLineByColon(line);
 
     let minRedBalls = 0;
     let minGreenBalls = 0;
     let minBlueBalls = 0;
 
-    const ballsText = sections[1];
-    const ballsSections = ballsText.split(';');
+    const ballsSections = right.split(';');
     for (const balls of ballsSections) {
       const ballsTexts = balls.split(',');
 

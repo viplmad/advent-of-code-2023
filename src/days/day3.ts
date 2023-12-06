@@ -1,4 +1,4 @@
-import { isNumber, readTextFile, splitLines } from '../utils';
+import { isNumber, readTextFile, splitTextByLineBreak } from '../utils';
 
 export default function day1(part: string, args: string[]): unknown {
   switch (part) {
@@ -22,7 +22,7 @@ function part1(args: string[]): unknown {
   const usedSpaces: boolean[][] = [];
 
   let total = 0;
-  const lines = splitLines(data);
+  const lines = splitTextByLineBreak(data);
   for (let index = 0; index < lines.length; index++) {
     const line = lines[index];
 
@@ -56,7 +56,7 @@ function part2(args: string[]): unknown {
   const data = readTextFile(filePath);
 
   let total = 0;
-  const lines = splitLines(data);
+  const lines = splitTextByLineBreak(data);
   for (let index = 0; index < lines.length; index++) {
     const line = lines[index];
 

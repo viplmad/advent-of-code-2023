@@ -1,4 +1,9 @@
-import { readTextFile, splitLines } from '../utils';
+import {
+  splitNumbersTextBySpace,
+  readTextFile,
+  splitTextByLineBreak,
+  splitLineByColon,
+} from '../utils';
 
 export default function day5(part: string, args: string[]): unknown {
   switch (part) {
@@ -20,12 +25,11 @@ function part1(args: string[]): unknown {
   let source: number[] = [];
   let dest: number[] = [];
 
-  const lines = splitLines(data);
+  const lines = splitTextByLineBreak(data);
   for (const line of lines) {
     if (line.startsWith('seeds')) {
-      const sections = line.split(':');
-      const numbersSection = sections[1];
-      source = buildNumbers(numbersSection);
+      const { right } = splitLineByColon(line);
+      source = splitNumbersTextBySpace(right);
 
       continue;
     }
@@ -71,12 +75,11 @@ function part2(args: string[]): unknown {
   let source: Range[] = [];
   let dest: Range[] = [];
 
-  const lines = splitLines(data);
+  const lines = splitTextByLineBreak(data);
   for (const line of lines) {
     if (line.startsWith('seeds')) {
-      const sections = line.split(':');
-      const numbersSection = sections[1];
-      const numbers = buildNumbers(numbersSection);
+      const { right } = splitLineByColon(line);
+      const numbers = splitNumbersTextBySpace(right);
       for (let index = 0; index < numbers.length; index += 2) {
         const number = numbers[index];
         const numberRange = numbers[index + 1];
@@ -244,7 +247,7 @@ function nextRangesWithMapEntry(
 }
 
 function buildMapRange(text: string): MapRange {
-  const numbers = buildNumbers(text);
+  const numbers = splitNumbersTextBySpace(text);
   const destRangeStart = numbers[0];
   const sourceRangeStart = numbers[1];
   const rangeLength = numbers[2];
@@ -260,12 +263,4 @@ function buildMapRange(text: string): MapRange {
     },
     rangeLength,
   };
-}
-
-function buildNumbers(text: string): number[] {
-  return text
-    .split(' ')
-    .map((text) => text.trim())
-    .filter((text) => !!text)
-    .map((text) => parseInt(text));
 }
